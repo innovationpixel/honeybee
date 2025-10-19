@@ -1,7 +1,7 @@
 @extends('layouts.admin')
+
 @section('html')
 
-  <!-- Swiper Slider -->
   <div class="section" id="one">
     <div class="one">
       <img class="slider-top-img" id="leaf"
@@ -19,6 +19,7 @@
       </svg>
     </div>
   </div>
+
   <div class="section" id="two">
     <div class="container">
       <div class="two">
@@ -173,8 +174,7 @@
       </div>
     </div>
   </section>
-  <!-- Our Services End -->
-  <!-- Why Us Start-->
+
   <section class="why-us v1" id="five">
     <div class="container">
       <div class="section-title-center v1">
@@ -240,6 +240,7 @@
       </div>
     </div>
   </section>
+
   <div class="grid-banner-section section" id="six">
     <div class="container py-5">
       <div class="row justify-content-center">
@@ -397,6 +398,7 @@
       </div>
     </div>
   </section>
-  </div>
+
+  <div id="container3D"></div>
 
 @endsection
