@@ -81,7 +81,7 @@
 								<tr class="c_row">
 									<td colspan="4" scope="row"></td>
 									<th style="padding-top: 20px;">Grand Total</th>
-									<th style="padding-top: 20px;">$ {{ $item->sub_total ?? 0 }}</th>
+									<th style="padding-top: 20px;">$ {{ $order->sub_total ?? 0 }}</th>
 								</tr>
 
 						</tbody>

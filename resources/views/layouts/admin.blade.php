@@ -70,7 +70,7 @@
                       <a class="shop-card-btn" href="{{ route('cart') }}">
                         <!-- <span class="price">$458.50</span> -->
                         <span class="my-icon icon-shop-bag"></span>
-                        <span class="count">03</span>
+                        <span class="count">{{ getCartCount() }}</span>
                       </a>
                     </div>
                   </li>
@@ -90,7 +90,6 @@
 
     @yield('html')
 
-    <!-- Footer -->
     <footer id="nine">
       <div class="info-footer v1 bg-cover-center" style="margin-top:80px ;"
         data-background="//beeswax-theme.myshopify.com/cdn/shop/files/honey_04de6ac7-7a95-4c9e-a645-6c2e6ab4fd54.png?v=1642766463">
@@ -232,6 +231,196 @@
     </script>
 
     @yield('script')
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  
+    @if(session('success'))
+      <script>
+        Swal.fire({
+          icon: 'success',
+          title: 'Success!',
+          text: "{{ session('success') }}",
+          timer: 3000,
+          showConfirmButton: false
+        });
+      </script>
+    @endif
+    
+    @if(session('error'))
+      <script>
+        Swal.fire({
+          icon: 'error',
+          title: 'Oops...',
+          text: "{{ session('error') }}",
+        });
+      </script>
+    @endif
+
+    <script type="text/javascript">
+      $(document).on('click', '.add-to-cart-custom', function (e) {
+          e.preventDefault();
+
+          let productId = $(this).data('product-id');
+          let quantity = $(this).data('quantity');
+          let price = $(this).data('price');
+
+          $.ajax({
+              url: `{{ route('add_to_cart') }}`,
+              method: 'POST',
+              data: {
+                  _token: $('meta[name="csrf-token"]').attr('content'),
+                  product_id: productId,
+                  quantity: quantity,
+                  price:price
+              },
+              beforeSend: function () {
+                  $("#loader").show();
+                  $("#blur-bg").show();
+              },
+              success: function (response) {
+                  $('.shop-card-btn .count').text(response.cartCount);
+                  Swal.fire({
+                    icon: 'success',
+                    title: 'Success!',
+                    text: 'Product added to cart!',
+                    timer: 3000,
+                    showConfirmButton: false
+                  });
+                  // setTimeout(() => location.reload(), 1500);
+              },
+              complete: function () {
+                  $("#loader").hide();
+                  $("#blur-bg").hide();
+              },
+              error: function (xhr) {
+                  alert('Error adding item to cart');
+              }
+          });
+      });
+
+      $(document).on('click', '.add-to-cart-custom-detail', function (e) {
+          e.preventDefault();
+
+          let productId = $(this).data('product-id');
+          let quantity = $('#quantity_detail').val();
+          let sizeId = $('.size-selector:checked').val();
+          let pot = $('.pot-selector:checked').val();
+          let priceText = $('#price-display-' + productId).text();
+          let price = priceText.replace('AED', '').trim();
+
+          // let sizeId = $('#size-selector').val();
+          // let pot = $('#pot-selector').val();
+
+          $.ajax({
+              url: `{{ route('add_to_cart') }}`,
+              method: 'POST',
+              data: {
+                  _token: $('meta[name="csrf-token"]').attr('content'),
+                  product_id: productId,
+                  quantity: quantity,
+                  size_id: sizeId,
+                  pot: pot,
+                  price:price
+              },
+              beforeSend: function () {
+                  $('.ajax-loader').fadeIn();
+              },
+              success: function (response) {
+                  $('.minicart-btn .quantity').text(response.cartCount);
+                  window.location.reload();
+              },
+              complete: function () {
+                  $('.ajax-loader').fadeOut();
+              },
+              error: function (xhr) {
+                  alert('Error adding item to cart');
+              }
+          });
+      });
+
+      $(document).on('click', '.add-to-wishlist', function(e) {
+          e.preventDefault();
+
+          let productId = $(this).data('product-id');
+
+          $.ajax({
+              url: `{{ route('add-to-wishlist') }}`,
+              type: 'POST',
+              data: {
+                product_id: productId,
+                _token: '{{ csrf_token() }}'
+              },
+              success: function(response) {
+                if (response.success) {
+                  Swal.fire({
+                    icon: 'success',
+                    title: 'Success!',
+                    text: 'Product added to wishlist!',
+                    timer: 3000,
+                    showConfirmButton: false
+                  });
+                } else {
+                  alert(response.message);
+                }
+              },
+              beforeSend: function () {
+                $('.ajax-loader').fadeIn();
+              },
+              complete: function () {
+                $('.ajax-loader').fadeOut();
+              },
+              error: function(xhr) {
+                if (xhr.status === 401) {
+                    $('#loginModal').modal('show');
+                } else {
+                    alert('An error occurred. Please try again later.');
+                }
+              }
+          });
+      });
+
+      function removeFromCart(id) {
+          if (confirm('Are you sure you want to remove this item from your cart?')) {
+              $.ajax({
+                  url: "{{ route('remove_from_cart') }}",
+                  method: 'POST',
+                  data: {
+                      _token: "{{ csrf_token() }}",
+                      id: id,
+                  },
+                  success: function(response) {
+                      if (response.status === 'success') {
+                          window.location.reload();
+                      }
+                  },
+                  error: function(xhr) {
+                      alert('Failed to remove the item. Please try again.');
+                  }
+              });
+          }
+      }
+
+      function removeFromWishlist(id) {
+          if (confirm('Are you sure you want to remove this item from your Wishlist?')) {
+              $.ajax({
+                  url: "{{ route('remove-from-wishlist') }}",
+                  method: 'POST',
+                  data: {
+                      _token: "{{ csrf_token() }}",
+                      id: id,
+                  },
+                  success: function(response) {
+                      if (response.status === 'success') {
+                          window.location.reload();
+                      }
+                  },
+                  error: function(xhr) {
+                      alert('Failed to remove the item. Please try again.');
+                  }
+              });
+          }
+      }
+    </script>
 
   </body>
 

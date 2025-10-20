@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\PortalController;
@@ -31,10 +32,17 @@ Route::post('/save_contact_form', [HomeController::class, 'save_contact_form'])-
 
 Route::get('/cart', [HomeController::class, 'cart'])->name('cart');
 Route::post('/add_to_cart', [HomeController::class, 'add_to_cart'])->name('add_to_cart');
+Route::get('/view-cart', function () {
+    $cart = Session::get('cart', []);
+    return response()->json($cart);
+});
+
 Route::post('/remove_from_cart', [HomeController::class, 'remove_from_cart'])->name('remove_from_cart');
 Route::get('/cart/mini', [HomeController::class, 'getMiniCart'])->name('cart.mini');
 Route::post('/update-cart-quantities', [HomeController::class, 'updateCartQuantities'])->name('update_cart_quantities');
 Route::get('/checkout', [HomeController::class, 'checkout'])->name('checkout');
+Route::post('/placeOrder', [HomeController::class, 'placeOrder'])->name('placeOrder');
+Route::get('/order-success', [HomeController::class, 'order_success'])->name('order-success');
 
 Route::get('/wishlist', [HomeController::class, 'wishlist'])->name('wishlist');
 Route::post('/add-to-wishlist', [HomeController::class, 'add_to_wishlist'])->name('add-to-wishlist');

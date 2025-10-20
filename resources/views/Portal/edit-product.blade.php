@@ -227,7 +227,7 @@
 							</div>
 
 							<!-- Category -->
-							<div class="col-sm-6">
+							<div class="col-sm-4">
 								<div class="form-group">
 									<label>Category</label>
 									<select class="form-control form-select" name="category_id" id="supervisor_select">
@@ -245,7 +245,7 @@
 							</div>
 
 							<!-- Sub-Category -->
-							<div class="col-sm-6">
+							<div class="col-sm-4">
 								<div class="form-group multislect">
 									<label>Sub Category</label>
 									<select class="form-control" name="sub_category_id" id="sub_category_select">
@@ -260,6 +260,15 @@
 										@endif
 									</select>
 								</div>
+							</div>
+
+							<div class="col-sm-4">
+
+								<div class="form-group">
+									<label for="formGroupExampleInput">Weight</label>
+									<input type="text" name="weight" class="form-control" id="addProducttitleInput" placeholder="Weight" value="{{ $product->weight ?? '' }}" required>
+								</div>
+
 							</div>
 
 							<div class="col-md-12 mb-4">
@@ -674,7 +683,7 @@
 					$("#loader").show();
 					$("#blur-bg").show();
 
-					fetch(`/public/get-sub-categories/${categoryId}`)
+					fetch(`/get-sub-categories/${categoryId}`)
 						.then(response => response.json())
 						.then(data => {
 							if (data.length) {

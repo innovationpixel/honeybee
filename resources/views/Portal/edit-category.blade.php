@@ -90,12 +90,12 @@
 	<main id="main" class="main">
 
 		<div class="pagetitle">
-			<h1>Add Category</h1>
+			<h1>Edit Category</h1>
 			<div class="c_divider"></div>
 			<nav>
 				<ol class="breadcrumb">
 					<li class="breadcrumb-item"><a href="{{ route('/') }}">Dashboard</a></li>
-					<li class="breadcrumb-item active">Add Category</li>
+					<li class="breadcrumb-item active">Edit Category</li>
 				</ol>
 			</nav>
 		</div><!-- End Page Title -->
@@ -126,10 +126,10 @@
 
                             <div class="col-sm-6">
 
-								<div class="form-group">
+								<!-- <div class="form-group">
 									<label for="formGroupExampleInput">Icon</label>
-									<input type="text" name="icon" class="form-control" id="" value="{{ $category->icon ?? '' }}" placeholder="Icon" required>
-								</div>
+									<input type="text" name="icon" class="form-control" id="" value="{{ $category->icon ?? '' }}" placeholder="Icon">
+								</div> -->
 
 							</div>
 

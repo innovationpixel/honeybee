@@ -38,6 +38,9 @@ class PortalController extends Controller
     }
 
 
+
+
+
     // PRODUCTS
     public function add_product()
     {
@@ -63,6 +66,7 @@ class PortalController extends Controller
             $product->name = $input['product_name'];
             $product->description = $input['short_description'];
             $product->url = $input['url'];
+            $product->weight = $input['weight'] ?? '';
             $product->price = $input['price'] ?? 0;
             $product->discounted_price = $input['discounted_price'] ?? 0;
             $product->save();
@@ -146,6 +150,7 @@ class PortalController extends Controller
             $product->name = $request->input('product_name');
             $product->description = $request->input('short_description');
             $product->url = $request->input('url');
+            $product->weight = $request->input('weight');
             $product->price = $request->input('price');
             $product->discounted_price = $request->input('discounted_price') ?? 0;
             $product->save();
@@ -335,6 +340,9 @@ class PortalController extends Controller
 
 
 
+
+
+
     // BLOGS
     public function add_blog()
     {
@@ -473,6 +481,9 @@ class PortalController extends Controller
     }
 
 
+
+
+
     // CATEGORIES
     public function add_category()
     {
@@ -483,11 +494,11 @@ class PortalController extends Controller
     {
         $input = $request->all();
 
-        if($request->isMethod('POST') && !empty($input) && isset($input) && !empty($input['name']) && !empty($input['icon']))
+        if($request->isMethod('POST') && !empty($input) && isset($input) && !empty($input['name']) )
         {
             $category = new Category;
             $category->name = !empty($input['name']) ? $input['name'] : '';
-            $category->icon = !empty($input['icon']) ? $input['icon'] : '';
+            // $category->icon = !empty($input['icon']) ? $input['icon'] : '';
             $category->save();
 
             return redirect()->route('categories-list')->with('success', 'Category has been added successfully!');
@@ -516,12 +527,12 @@ class PortalController extends Controller
     {
         $input = $request->all();
 
-        if($request->isMethod('POST') && !empty($input['category_id']) && !empty($input['name']) && !empty($input['icon']))
+        if($request->isMethod('POST') && !empty($input['category_id']) && !empty($input['name']) )
         {
             $id = Crypt::decryptString($input['category_id']);
             $category = Category::find($id);
             $category->name = !empty($input['name']) ? $input['name'] : '';
-            $category->icon = !empty($input['icon']) ? $input['icon'] : '';
+            // $category->icon = !empty($input['icon']) ? $input['icon'] : '';
             $category->save();
 
             return redirect()->route('categories-list')->with('success', 'Category has been added successfully!');
@@ -541,6 +552,9 @@ class PortalController extends Controller
             }
         }
     }
+
+
+
 
 
     // ORDERS & CUSTOMERS
@@ -632,6 +646,9 @@ class PortalController extends Controller
     }
 
 
+
+
+
     // TAGS
     public function product_categories_list()
     {
@@ -691,6 +708,7 @@ class PortalController extends Controller
             }
         }
     }
+
 
 
 

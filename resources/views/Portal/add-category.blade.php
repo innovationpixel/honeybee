@@ -124,10 +124,10 @@
 
                             <div class="col-sm-6">
 
-								<div class="form-group">
+								<!-- <div class="form-group">
 									<label for="formGroupExampleInput">Icon</label>
-									<input type="text" name="icon" class="form-control" id="" placeholder="Icon" required>
-								</div>
+									<input type="text" name="icon" class="form-control" id="" placeholder="Icon">
+								</div> -->
 
 							</div>
 

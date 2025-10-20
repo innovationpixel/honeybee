@@ -56,7 +56,7 @@
 							<tr class="c_row">
 								<th scope="col">S. No</th>
 								<th scope="col">Category</th>
-								<th scope="col">Icon</th>
+								<!-- <th scope="col">Icon</th> -->
 								<th scope="col">Action</th>
 							</tr>
 						</thead>
@@ -69,7 +69,7 @@
 									<tr class="c_row">
 										<th scope="row">{{ $key + 1 }}</th>
 										<td>{{ $category->name }}</td>
-										<td>{{ $category->icon ?? '' }}</td>
+										<!-- <td>{{ $category->icon ?? '' }}</td> -->
 										<td>
 											<a href="{{ route('edit-category', Crypt::encryptString($category->id) ) }}" style="color:#db9d94;">Edit</a> |
 											<a href="{{ route('delete-category', Crypt::encryptString($category->id) ) }}" style="color:#db9d94;">Delete</a>

@@ -38,7 +38,7 @@ class LoginController extends Controller
 
         if( $user && $user->role == 'admin' )
         {
-            $this->redirectTo = '/';
+            $this->redirectTo = '/dashbord';
             return $this->redirectTo;
         
         } else {
@@ -69,8 +69,8 @@ class LoginController extends Controller
 
     protected function authenticated(Request $request, $user)
     {
-        if ($user->role_id == 1) {
-            return redirect('/');
+        if ($user->role == 'admin') {
+            return redirect('/dashboard');
         }
 
         abort(404);
