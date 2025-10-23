@@ -27,6 +27,8 @@ Route::get('/product/{url}', [HomeController::class, 'product_detail'])->name('p
 Route::get('/our-service', [HomeController::class, 'our_service'])->name('our-service');
 Route::get('/service-detail', [HomeController::class, 'service_detail'])->name('service-detail');
 Route::get('/faq', [HomeController::class, 'faq'])->name('faq');
+Route::get('/terms-and-conditions', [HomeController::class, 'terms_and_conditions'])->name('terms-and-conditions');
+Route::get('/privacy-policy', [HomeController::class, 'privacy_policy'])->name('privacy-policy');
 
 Route::post('/save_contact_form', [HomeController::class, 'save_contact_form'])->name('save_contact_form');
 

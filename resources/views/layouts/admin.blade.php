@@ -150,9 +150,9 @@
                   <div class="footer__widget-content">
                     <div class="useful-link">
                       <ul>
-                        <li><a href="{{ route('contact') }}">Terms &amp; Conditions</a></li>
+                        <li><a href="{{ route('terms-and-conditions') }}">Terms &amp; Conditions</a></li>
                         <li><a href="{{ route('contact') }}">Payment Methods</a></li>
-                        <li><a href="{{ route('contact') }}">Privacy Policy</a></li>
+                        <li><a href="{{ route('privacy-policy') }}">Privacy Policy</a></li>
                         <li><a href="{{ route('contact') }}">Product Complaint</a></li>
                         <li><a href="{{ route('contact') }}">Careers</a></li>
                       </ul>

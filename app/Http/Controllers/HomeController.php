@@ -163,6 +163,26 @@ class HomeController extends Controller
         );
     }
 
+    public function terms_and_conditions()
+    {
+
+        return view('terms-and-conditions',
+            [
+
+            ]
+        );
+    }
+
+    public function privacy_policy()
+    {
+
+        return view('privacy-policy',
+            [
+
+            ]
+        );
+    }
+
     public function my_account()
     {
         if( Auth::check() )
