@@ -3,8 +3,7 @@
 @section('html')
 
     <main>
-        <section class="breadcum v1 bg-cover-center"
-            data-background="https://techsometimes.com/products/html/beeberry-html/assets/img/working-process/bg.jpg">
+        <section class="breadcum v1 bg-cover-center" data-background="https://techsometimes.com/products/html/beeberry-html/assets/img/working-process/bg.jpg">
             <div class="container">
                 <h2>Shop</h2>
                 <ul>

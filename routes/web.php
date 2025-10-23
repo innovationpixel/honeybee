@@ -23,7 +23,7 @@ Route::get('/', [HomeController::class, 'index'])->name('/');
 Route::get('/contact', [HomeController::class, 'contact'])->name('contact');
 Route::get('/about', [HomeController::class, 'about'])->name('about');
 Route::get('/shop', [HomeController::class, 'shop'])->name('shop');
-Route::get('/shop-detail', [HomeController::class, 'shop_detail'])->name('shop-detail');
+Route::get('/product/{url}', [HomeController::class, 'product_detail'])->name('product-detail');
 Route::get('/our-service', [HomeController::class, 'our_service'])->name('our-service');
 Route::get('/service-detail', [HomeController::class, 'service_detail'])->name('service-detail');
 Route::get('/faq', [HomeController::class, 'faq'])->name('faq');
@@ -47,6 +47,13 @@ Route::get('/order-success', [HomeController::class, 'order_success'])->name('or
 Route::get('/wishlist', [HomeController::class, 'wishlist'])->name('wishlist');
 Route::post('/add-to-wishlist', [HomeController::class, 'add_to_wishlist'])->name('add-to-wishlist');
 Route::post('/remove-from-wishlist', [HomeController::class, 'remove_from_wishlist'])->name('remove-from-wishlist');
+
+Route::middleware(['auth'])->group(function () {
+    Route::get('/my-account', [HomeController::class, 'my_account'])->name('my-account');
+    Route::post('/user/update-profile', [HomeController::class, 'updateProfile'])->name('user.updateProfile');
+    Route::post('/user/update-password', [HomeController::class, 'updatePassword'])->name('user.updatePassword');
+});
+
 // WEBSITE ROUTES
 
 

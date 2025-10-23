@@ -10,7 +10,7 @@
   @if( !empty($title) )
   <title>{{ $title }}</title>
   @else
-  <title>Admin Portal | Himalayan Salt </title>
+  <title>Admin Portal | Honey Bee </title>
 
   @endif
 

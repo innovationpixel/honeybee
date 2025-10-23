@@ -4,9 +4,9 @@
             <div class="col-sm-6 col-xl-4">
                 <div class="product-card v1">
                     <div class="product-img">
-                        <a href="{{ route('shop-detail') }}">
+                        <a href="{{ route('product-detail', $product->url) }}">
                             @if( isset($product->documentTitle) && !empty($product->documentTitle) )
-                                <img src="{{ asset('storage/product/' .$product->documentTitle->encoded_name ) }}" alt="items">
+                                <img src="{{ asset('storage/products/' .$product->documentTitle->encoded_name ) }}" alt="items">
                             @endif
                         </a>
                     </div>
@@ -21,7 +21,7 @@
                             }
                         @endphp
 
-                        <h4><a href="{{ route('shop-detail') }}">{{ $product->name ?? '' }}</a></h4>
+                        <h4><a href="{{ route('product-detail', $product->url) }}">{{ $product->name ?? '' }}</a></h4>
 
                         @if($discountPercentage > 0)
                             <h5>${{ number_format($finalPrice, 2) }} <del>${{ number_format($originalPrice, 2) }}</del></h5>
@@ -33,7 +33,9 @@
                     </div>
                     <ul class="shop-btns">
                         <li>
-                            <a data-product-id="{{ $product->id }}" data-quantity="1" class="add-to-cart-custom"><span class="my-icon icon-heart"></span></a>
+                            <a class="{{ Auth::id() && $product->wishlist ? 'wishlist_active' : 'add-to-wishlist' }}" data-product-id="{{ $product->id }}">
+                                <span class="my-icon icon-heart {{ Auth::id() && $product->wishlist ? 'wishlist_active_icon' : '' }}"></span>
+                            </a>
                         </li>
                         <li>
                             <a data-product-id="{{ $product->id }}" data-quantity="1" data-price="{{ $discountPercentage > 0 ? $finalPrice : $originalPrice }}" class="add-to-cart-custom"><span class="my-icon icon-shop-bag"></span></a>

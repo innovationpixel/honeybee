@@ -66,19 +66,8 @@
 							<p class="txt">{{ $lead->phone ?? '' }}</p>
 						</div>
 
-                        <div class="col-md-3 col-3 mb-2 mb-sm-0">
-                            <p class="label">Bundle Size</p>
-                            @if ( isset( $lead->bundle_size ) && !empty( $lead->bundle_size ) )
-                                <p class="txt">{{ $lead->bundle_size ?? '' }}</p>
-                            @elseif ( isset( $lead->other_bundle ) && !empty( $lead->other_bundle ) )
-                                <p class="txt">{{ $lead->other_bundle ?? '' }}</p>
-                            @else
-                                <p class="txt"></p>
-                            @endif
-                        </div>
-
-						<div class="col-md-8 col-8 mb-2">
-							<p class="label">Address</p>
+						<div class="col-md-12 col-8 mb-2">
+							<p class="label">Message</p>
 							<p class="txt">{{ $lead->message }}</p>
 						</div>
 

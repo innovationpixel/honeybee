@@ -15,10 +15,13 @@ use App\Models\Product;
 use App\Models\OrderProduct;
 use App\Models\User;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Validation\Rules\Password;
 
 class HomeController extends Controller
 {
@@ -122,14 +125,12 @@ class HomeController extends Controller
         return view('shop', compact('products','categories','minPrice','maxPrice'));
     }
 
-    public function shop_detail()
+    public function product_detail($url)
     {
+        $product = Product::where('url', $url)->first();
+        $products = Product::where('deleted', 0)->take(4)->get();
 
-        return view('shop-detail',
-            [
-
-            ]
-        );
+        return view('product-detail', compact('product','products'));
     }
 
     public function our_service()
@@ -160,6 +161,23 @@ class HomeController extends Controller
 
             ]
         );
+    }
+
+    public function my_account()
+    {
+        if( Auth::check() )
+        {
+            $user = Auth::user();
+            $orders = Order::where('user_id', Auth::user()->id)->latest()->take(5)->get();
+
+            // print_r($orders); exit;
+
+            return view('my-account', compact('user', 'orders'));
+
+        } else {
+
+            return redirect()->route('/')->with('error', 'No Page Found');
+        }
     }
 
     public function checkout()
@@ -213,6 +231,8 @@ class HomeController extends Controller
             } else {
                 $user = $existingUser;
             }
+        } elseif ($request->create_account == 0 && Auth::check()) {
+            $user = User::where('id', Auth::user()->id)->first();
         }
 
         $subTotal = 0;
@@ -264,8 +284,6 @@ class HomeController extends Controller
         }
     }
 
-
-
     public function faq()
     {
 
@@ -295,11 +313,11 @@ class HomeController extends Controller
     {
         $productId = $request->input('product_id');
         $quantity = $request->input('quantity', 1);
-        $price = $request->input('price');
+        // $price = $request->input('price');
 
-        if (!$productId || empty($price)) {
+        if (!$productId) {
             return response()->json([
-                'message' => 'Missing product ID or price',
+                'message' => 'Missing product ID',
             ], 400);
         }
 
@@ -419,4 +437,54 @@ class HomeController extends Controller
             ]);
         }
     }
+
+    public function updateProfile(Request $request)
+    {
+        $request->validate([
+            'name'  => 'required|string|max:255',
+            'email' => 'required|email|unique:users,email,' . Auth::id(),
+            'phone' => 'nullable|string|max:20',
+        ]);
+
+        $user = Auth::user();
+
+        $user->update([
+            'name'  => $request->name,
+            'email' => $request->email,
+            'phone' => $request->phone,
+        ]);
+
+        return back()->with('success', 'Profile updated successfully.');
+    }
+
+    public function updatePassword(Request $request)
+    {
+        $request->validate([
+            'current_password' => 'required',
+            'new_password' => ['required', 'confirmed', Password::min(8)->mixedCase()->numbers()->symbols()],
+        ]);
+
+        $user = Auth::user();
+
+        if (!Hash::check($request->current_password, $user->password)) {
+            return back()->withErrors(['current_password' => 'The current password is incorrect.']);
+        }
+
+        $user->update([
+            'password' => Hash::make($request->new_password),
+        ]);
+
+        return back()->with('success', 'Password updated successfully.');
+    }
+
+    public function accountPage()
+    {
+        $user = Auth::user();
+        $orders = Orders::where('user_id', Auth::user()->id)->latest()->take(5)->get();
+
+        print_r($orders); exit;
+
+        return view('user.account', compact('user', 'orders'));
+    }
+
 }

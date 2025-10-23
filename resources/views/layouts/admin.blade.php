@@ -20,6 +20,14 @@
     <link rel="stylesheet" href="{{ asset('assets/css/style.css')}}">
     <link rel="stylesheet" href="{{ asset('assets/css/responsive.css')}}">
     <link rel="stylesheet" href="{{ asset('assets/customstyling.css')}}" />
+    <style>
+      .wishlist_active {
+        color: #fcc41a !important;
+      }
+      .wishlist_active_icon {
+        color: #2b221f !important;
+      }
+    </style>
   </head>
   <body>
     <div class="preloder"></div>
@@ -74,6 +82,23 @@
                       </a>
                     </div>
                   </li>
+                  @if(Auth::check())
+                    <li>
+                      <div class="shop-card-list">
+                        <a class="shop-card-btn" href="{{ route('my-account') }}"> 
+                          <span class="my-icon icon-user"></span>
+                        </a>
+                      </div>
+                    </li>
+                  @else
+                    <li>
+                      <div class="shop-card-list">
+                        <a class="shop-card-btn" href="{{ route('login') }}">
+                          <span class="my-icon icon-user"></span>
+                        </a>
+                      </div>
+                    </li>
+                  @endif
                   <li>
                     <button class="mobile-menu-btn">
                       <span></span>
@@ -299,43 +324,42 @@
       });
 
       $(document).on('click', '.add-to-cart-custom-detail', function (e) {
-          e.preventDefault();
+        e.preventDefault();
 
-          let productId = $(this).data('product-id');
-          let quantity = $('#quantity_detail').val();
-          let sizeId = $('.size-selector:checked').val();
-          let pot = $('.pot-selector:checked').val();
-          let priceText = $('#price-display-' + productId).text();
-          let price = priceText.replace('AED', '').trim();
+        let productId = $(this).data('product-id');
+         let quantity = $(this).closest('.quan-card').find('.count-numbber').val();
 
-          // let sizeId = $('#size-selector').val();
-          // let pot = $('#pot-selector').val();
-
-          $.ajax({
-              url: `{{ route('add_to_cart') }}`,
-              method: 'POST',
-              data: {
-                  _token: $('meta[name="csrf-token"]').attr('content'),
-                  product_id: productId,
-                  quantity: quantity,
-                  size_id: sizeId,
-                  pot: pot,
-                  price:price
-              },
-              beforeSend: function () {
-                  $('.ajax-loader').fadeIn();
-              },
-              success: function (response) {
-                  $('.minicart-btn .quantity').text(response.cartCount);
-                  window.location.reload();
-              },
-              complete: function () {
-                  $('.ajax-loader').fadeOut();
-              },
-              error: function (xhr) {
-                  alert('Error adding item to cart');
-              }
-          });
+        $.ajax({
+          url: `{{ route('add_to_cart') }}`,
+          method: 'POST',
+          data: {
+            _token: $('meta[name="csrf-token"]').attr('content'),
+            product_id: productId,
+            quantity: quantity,
+          },
+          beforeSend: function () {
+            $("#loader").show();
+            $("#blur-bg").show();
+          },
+          success: function (response) {
+            $('.shop-card-btn .count').text(response.cartCount);
+            Swal.fire({
+              icon: 'success',
+              title: 'Success!',
+              text: 'Product added to cart!',
+              timer: 3000,
+              showConfirmButton: false
+            });
+            setTimeout(() => location.reload(), 1500);
+          },
+          complete: function () {
+            $("#loader").hide();
+            $("#blur-bg").hide();
+          },
+          error: function (xhr) {
+            alert('Error adding item to cart');
+          }
+        });
       });
 
       $(document).on('click', '.add-to-wishlist', function(e) {
@@ -359,15 +383,18 @@
                     timer: 3000,
                     showConfirmButton: false
                   });
+                  setTimeout(() => location.reload(), 1500);
                 } else {
                   alert(response.message);
                 }
               },
               beforeSend: function () {
-                $('.ajax-loader').fadeIn();
+                $("#loader").show();
+                $("#blur-bg").show();
               },
               complete: function () {
-                $('.ajax-loader').fadeOut();
+                $("#loader").hide();
+                $("#blur-bg").hide();
               },
               error: function(xhr) {
                 if (xhr.status === 401) {

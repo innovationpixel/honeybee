@@ -43,7 +43,8 @@ class LoginController extends Controller
         
         } else {
 
-            abort(404);
+            $this->redirectTo = '/';
+            return $this->redirectTo;
         }
     }
 
@@ -71,6 +72,8 @@ class LoginController extends Controller
     {
         if ($user->role == 'admin') {
             return redirect('/dashboard');
+        } else {
+            return redirect('/');
         }
 
         abort(404);

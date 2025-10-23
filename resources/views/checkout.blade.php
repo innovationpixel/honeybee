@@ -101,12 +101,14 @@
                                     <input type="text" name="order_note" class="form-control" id="order_notes" placeholder="Order Notes (optional)">
                                 </div>
 
-                                <div class="form-check mb-3">
-                                    <input class="form-check-input" name="create_account" type="checkbox" id="createAccount">
-                                    <label class="form-check-label" for="createAccount">
-                                        Create an account?
-                                    </label>
-                                </div>
+                                @if( !Auth::check() )
+                                    <div class="form-check mb-3">
+                                        <input class="form-check-input" name="create_account" type="checkbox" id="createAccount">
+                                        <label class="form-check-label" for="createAccount">
+                                            Create an account?
+                                        </label>
+                                    </div>
+                                @endif
                             </div>
 
                             <div class="col-md-5">

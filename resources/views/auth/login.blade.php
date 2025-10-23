@@ -52,16 +52,18 @@
         }
     </style>
 
-    <section class="pt-5 pb-5 login_sec" style="padding-top: 100px;">
+    <section class="pt-5 pb-5 login_sec" style="padding-top: 100px !important;">
 		<div class="container my-5">
 			<div class="row">
-				<div class="col-md-10 mx-auto">
+				<div class="col-md-12 mx-auto">
 					<div class="login_box row">
 						<div class="col-md-7">
 							<img src="{{ asset('assets/images/slider/slide-img/pink-himalayan-salt.png') }}" class="w-100" style="border-radius:15px; height:100%;">
 						</div>
 						<div class="col-md-5 my-auto text-center py-4 py-sm-0">
-							<img src="https://dropbelaravel.bracketweb.com/assets/images/logo-dark.png" class="w-50 mb-3">
+                            <a href="{{ route('/') }}">
+                                <img src="https://dropbelaravel.bracketweb.com/assets/images/logo-dark.png" class="w-50 mb-3">
+                            </a>
 							<p style="font-size: 14px;">Login into your account</p>
                             <div class="form_box">
                                 @if ($errors->any())

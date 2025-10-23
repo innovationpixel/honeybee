@@ -66,12 +66,12 @@
           <div class="swiper-slide">
             <div class="product-card v1">
               <div class="product-img">
-                <a href="{{ route('shop-detail') }}">
+                <a href="">
                   <img src="{{ asset('./Images/bottle.png')}}" alt="items">
                 </a>
               </div>
               <div class="product-content">
-                <h4><a href="{{ route('shop-detail') }}">Premium Honey</a></h4>
+                <h4><a href="">Premium Honey</a></h4>
                 <h5>$10.50 <del>$12.50</del></h5>
                 <p>Weight: <strong>1KG</strong></p>
               </div>
@@ -85,12 +85,12 @@
           <div class="swiper-slide">
             <div class="product-card v1">
               <div class="product-img">
-                <a href="{{ route('shop-detail') }}">
+                <a href="">
                   <h1>&nbsp;</h1>
                 </a>
               </div>
               <div class="product-content">
-                <h4><a href="{{ route('shop-detail') }}">Organic Honey</a></h4>
+                <h4><a href="">Organic Honey</a></h4>
                 <h5>$12.50</h5>
                 <p>Weight: <strong>1KG</strong></p>
               </div>
@@ -104,12 +104,12 @@
           <div class="swiper-slide">
             <div class="product-card v1">
               <div class="product-img">
-                <a href="{{ route('shop-detail') }}">
+                <a href="">
                   <img src="{{ asset('./Images/bottle.png')}}" alt="items">
                 </a>
               </div>
               <div class="product-content">
-                <h4><a href="{{ route('shop-detail') }}">Jarrah Honey</a></h4>
+                <h4><a href="">Jarrah Honey</a></h4>
                 <h5>$13.50</h5>
                 <p>Weight: <strong>1KG</strong></p>
               </div>
