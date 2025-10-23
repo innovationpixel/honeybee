@@ -30,7 +30,7 @@
     </style>
   </head>
   <body>
-    <div class="preloder"></div>
+
     <header>
       <div id="main-wrapper">
         <div class="menu-bar v1">
