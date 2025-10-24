@@ -196,7 +196,7 @@
 							<div class="col-sm-4">
 								<div class="form-group">
 									<label>Category</label>
-									<select class="form-control form-select" name="category_id" id="category">
+									<select class="form-control form-select" name="category_id" id="category" required>
 										<option value="">Select Category</option>
 										@if($categories->isNotEmpty())
 											@foreach($categories as $category)
@@ -211,7 +211,7 @@
 							<div class="col-sm-4">
 								<div class="form-group multislect">
 									<label>Sub Category</label>
-									<select class="form-control" name="sub_category_id" id="sub_category" placeholder="Please select Sub Category">
+									<select class="form-control" name="sub_category_id" id="sub_category" placeholder="Please select Sub Category" required>
 										<option value="">Select Sub Category</option>
 										<!-- Dynamically populated -->
 									</select>
@@ -317,8 +317,8 @@
 
 	</main><!-- End #main -->
 
-	<script src="{{ asset('js/jquery.min.js')}}"></script>
-	<script src="{{ asset('js/bootstrap.min.js') }}"></script>
+	<script src="{{ asset('assets/js/jquery-3.6.3.min.js')}}"></script>
+	<script src="{{ asset('assets/js/bootstrap.min.js')}}"></script>
 	<script src="{{ asset('js/jquery.validate.min.js') }}"></script>
 	<script src="{{ asset('js/spartan-multi-image-picker-min.js') }}"></script>
 

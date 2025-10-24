@@ -282,7 +282,7 @@ class PortalController extends Controller
     }
     public function products_list()
     {
-        $products = Product::all();
+        $products = Product::latest()->get();
 
         return view('Portal/products-list', compact('products'));
     }
@@ -424,7 +424,7 @@ class PortalController extends Controller
     }
     public function blogs_list()
     {
-        $blogs = Blog::all();
+        $blogs = Blog::latest()->get();
         return view('Portal/blogs-list',['blogs' => $blogs]);
     }
     public function edit_blog($id)
@@ -506,7 +506,7 @@ class PortalController extends Controller
     }
     public function categories_list()
     {
-        $categories = Category::where('deleted', 0)->get();
+        $categories = Category::where('deleted', 0)->latest()->get();
 
         return view('Portal/categories-list', compact('categories'));
     }
@@ -562,7 +562,7 @@ class PortalController extends Controller
     {
         if(Auth::check())
         {
-            $orders = Order::all();
+            $orders = Order::latest()->get();
 
             $orderStatuses = OrderStatus::all();
 
@@ -606,6 +606,7 @@ class PortalController extends Controller
         {
             $customers = DB::table('customers')
                 ->select('customers.*')
+                ->latest()
                 ->get();
 
             return view('Portal/customers-list',['customers' => $customers]);
@@ -690,7 +691,7 @@ class PortalController extends Controller
     {
         if(Auth::check())
         {
-            $sub_categories = SubCategory::where('deleted', 0)->get();
+            $sub_categories = SubCategory::where('deleted', 0)->latest()->get();
 
             return view('Portal/sub-categories-list', compact('sub_categories'));
         }
@@ -721,6 +722,7 @@ class PortalController extends Controller
             $leads = DB::table('forms')
                 ->select('forms.*')
                 ->where('deleted', 0)
+                ->latest()
                 ->get();
 
             return view('Portal/leads-list',['leads' => $leads]);

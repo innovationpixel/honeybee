@@ -80,7 +80,10 @@
                                       			</button>
                                       			<ul class="dropdown-menu">
                                                     <li>
-                                                    	<a class="dropdown-item" href="{{ route('edit-product', Crypt::encryptString($product->id) ) }}">View</a>
+                                                    	<a class="dropdown-item" href="{{ route('product-detail', $product->url ) }}">View</a>
+                                                    </li>
+                                                    <li>
+                                                    	<a class="dropdown-item" href="{{ route('edit-product', Crypt::encryptString($product->id) ) }}">Edit</a>
                                                     </li>
                                         			<li>
                                         				<a class="dropdown-item" href="{{ route('deleteProduct', Crypt::encryptString($product->id)) }}">Delete</a>

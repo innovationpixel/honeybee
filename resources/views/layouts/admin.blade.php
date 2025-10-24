@@ -85,6 +85,11 @@
                   @if(Auth::check())
                     <li>
                       <div class="shop-card-list">
+                        Welcome <strong>{{ auth()->user()->name }}!</strong>
+                      </div>
+                    </li>
+                    <li>
+                      <div class="shop-card-list">
                         <a class="shop-card-btn" href="{{ route('my-account') }}"> 
                           <span class="my-icon icon-user"></span>
                         </a>
@@ -94,7 +99,9 @@
                     <li>
                       <div class="shop-card-list">
                         <a class="shop-card-btn" href="{{ route('login') }}">
-                          <span class="my-icon icon-user"></span>
+                          <span class="my-icon">
+                            <i class="fa-solid fa-key" style="color: #fff;"></i>
+                          </span>
                         </a>
                       </div>
                     </li>

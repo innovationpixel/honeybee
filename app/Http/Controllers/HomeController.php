@@ -46,12 +46,9 @@ class HomeController extends Controller
 
 	public function index()
     {
+        $products = Product::where('deleted', 0)->take(3)->latest()->get();
 
-        return view('index',
-            [
-                
-            ]
-        );
+        return view('index', compact('products'));
     }
 
     public function contact()
@@ -84,6 +81,7 @@ class HomeController extends Controller
         $products = Product::with(['documents' => function($q) {
                 $q->select('belong_id', 'original_name', 'encoded_name', 'title');
             }])
+            ->latest()
             ->when($request->filled('id'), fn($q) => $q->where('id', $request->id))
             ->when($request->filled('category_id'), fn($q) => $q->where('category_id', $request->category_id))
             ->when($request->filled('sub_category_id'), fn($q) => $q->where('sub_category_id', $request->sub_category_id))
@@ -203,10 +201,18 @@ class HomeController extends Controller
     public function checkout()
     {
         if(session()->has('cart') && count(session('cart')) > 0){
-            return view('checkout');
+            $countries = DB::table('countries')->get();
+            return view('checkout', compact('countries'));
         } else {
             return redirect()->back()->with('error', 'Your Cart is empty.');
         }
+    }
+
+    public function getCities(Request $request)
+    {
+        $countryId = $request->country_id;
+        $cities = DB::table('cities')->where('country_id', $countryId)->orderBy('name')->get(['id', 'name']);
+        return response()->json($cities);
     }
 
     public function placeOrder(Request $request)

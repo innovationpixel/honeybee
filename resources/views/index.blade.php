@@ -63,66 +63,46 @@
       <div class="swiper mySwiper">
         <div class="swiper-wrapper">
 
-          <div class="swiper-slide">
-            <div class="product-card v1">
-              <div class="product-img">
-                <a href="">
-                  <img src="{{ asset('./Images/bottle.png')}}" alt="items">
-                </a>
-              </div>
-              <div class="product-content">
-                <h4><a href="">Premium Honey</a></h4>
-                <h5>$10.50 <del>$12.50</del></h5>
-                <p>Weight: <strong>1KG</strong></p>
-              </div>
-              <ul class="shop-btns">
-                <li><a href="#"><span class="my-icon icon-heart"></span></a></li>
-                <li><a href="{{ route('cart') }}"><span class="my-icon icon-shop-bag"></span></a></li>
-              </ul>
-            </div>
-          </div>
+          @if( isset($products) && !empty($products) )
+            @foreach($products as $product)                            
+              <div class="swiper-slide">
+                <div class="product-card v1">
+                  <div class="product-img">
+                    <a href="{{ route('product-detail', $product->url) }}">
+                      @if( isset($product->documentTitle) && !empty($product->documentTitle) )
+                        <img src="{{ asset('storage/products/' .$product->documentTitle->encoded_name ) }}" alt="{{ $product->name ?? '' }}">
+                      @endif
+                    </a>
+                  </div>
+                  <div class="product-content">
+                    <h4><a href="{{ route('product-detail', $product->url) }}">{{ $product->name ?? '' }}</a></h4>
+                    @php
+                      $originalPrice = $product->price ?? 0;
+                      $discountPercentage = $product->discounted_price ?? 0;
+                      $finalPrice = $originalPrice;
 
-          <div class="swiper-slide">
-            <div class="product-card v1">
-              <div class="product-img">
-                <a href="">
-                  <h1>&nbsp;</h1>
-                </a>
+                      if ($discountPercentage > 0) {
+                          $finalPrice = $originalPrice - ($originalPrice * ($discountPercentage / 100));
+                      }
+                    @endphp
+                    @if($discountPercentage > 0)
+                      <h5>${{ number_format($finalPrice, 2) }} <del>${{ number_format($originalPrice, 2) }}</del></h5>
+                    @else
+                      <h5>${{ number_format($originalPrice, 2) }}</h5>
+                    @endif
+                    <p>Weight: <strong>{{ $product->weight ?? '' }}</strong></p>
+                  </div>
+                  <ul class="shop-btns">
+                    <li><a class="{{ Auth::id() && $product->wishlist ? 'wishlist_active' : 'add-to-wishlist' }}" data-product-id="{{ $product->id }}"><span class="my-icon icon-heart"></span></a></li>
+                    <li><a data-product-id="{{ $product->id }}" data-quantity="1" data-price="{{ $discountPercentage > 0 ? $finalPrice : $originalPrice }}" class="add-to-cart-custom"><span class="my-icon icon-shop-bag"></span></a></li>
+                  </ul>
+                </div>
               </div>
-              <div class="product-content">
-                <h4><a href="">Organic Honey</a></h4>
-                <h5>$12.50</h5>
-                <p>Weight: <strong>1KG</strong></p>
-              </div>
-              <ul class="shop-btns">
-                <li><a href="#"><span class="my-icon icon-heart"></span></a></li>
-                <li><a href="{{ route('cart') }}"><span class="my-icon icon-shop-bag"></span></a></li>
-              </ul>
-            </div>
-          </div>
-
-          <div class="swiper-slide">
-            <div class="product-card v1">
-              <div class="product-img">
-                <a href="">
-                  <img src="{{ asset('./Images/bottle.png')}}" alt="items">
-                </a>
-              </div>
-              <div class="product-content">
-                <h4><a href="">Jarrah Honey</a></h4>
-                <h5>$13.50</h5>
-                <p>Weight: <strong>1KG</strong></p>
-              </div>
-              <ul class="shop-btns">
-                <li><a href="#"><span class="my-icon icon-heart"></span></a></li>
-                <li><a href="{{ route('cart') }}"><span class="my-icon icon-shop-bag"></span></a></li>
-              </ul>
-            </div>
-          </div>
+            @endforeach
+          @endif
 
         </div>
 
-        <!-- Navigation buttons -->
         <div class="swiper-button-next"></div>
         <div class="swiper-button-prev"></div>
 

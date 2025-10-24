@@ -199,7 +199,7 @@
                                         </a>
                                     </div>
                                     <div class="product-content">
-                                        <h4><a href="{{ route('product-detail', $product->url) }}">Dark Honey</a></h4>
+                                        <h4><a href="{{ route('product-detail', $product->url) }}">{{ $product->name ?? '' }}</a></h4>
                                         @php
                                             $originalPrice = $product->price ?? 0;
                                             $discountPercentage = $product->discounted_price ?? 0;

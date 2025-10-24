@@ -29,7 +29,7 @@ Route::get('/service-detail', [HomeController::class, 'service_detail'])->name('
 Route::get('/faq', [HomeController::class, 'faq'])->name('faq');
 Route::get('/terms-and-conditions', [HomeController::class, 'terms_and_conditions'])->name('terms-and-conditions');
 Route::get('/privacy-policy', [HomeController::class, 'privacy_policy'])->name('privacy-policy');
-
+Route::get('/get-cities', [HomeController::class, 'getCities'])->name('get-cities');
 Route::post('/save_contact_form', [HomeController::class, 'save_contact_form'])->name('save_contact_form');
 
 Route::get('/cart', [HomeController::class, 'cart'])->name('cart');
