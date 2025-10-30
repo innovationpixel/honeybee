@@ -8,7 +8,7 @@
         src="https://preview.vwthemesdemo.com/vw-honey-shop-pro/wp-content/themes/vw-honey-shop-pro/assets/images/slider/slider-top.png"
         alt="Image" />
       <h1 data-text="Hunzzz Honey">Hunzzz Honey</h1>
-      <img id="fanta" src="{{ asset('images/bottle.png')}}" alt="" />
+      <img id="fanta" src="{{ asset('Images/bottle.png')}}" alt="" />
     </div>
 
   </section>
@@ -17,6 +17,8 @@
     <div class="container">
       <div class="two">
         <div class="row">
+
+
           <div class="col-lg-6">
             <!-- <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
                 <path fill="#e04428"
@@ -63,7 +65,7 @@
     </div>
   </section>
 
-  <section class="section why-us v1" id="three">
+  <section class="secttion why-us v1" id="four">
     <div class="container">
 
       <div class="section-title-center v1">
@@ -128,53 +130,14 @@
         </div>
       </div>
     </div>
-    </div>
+
   </section>
 
- 
 
 
-  <section class="our-services v1 section" id="our_services four" >
-    <div class="one"> 
-      <div class=" container">
-        <div class="section-title-center v1">
-          <h6>Our Services</h6>
-          <h2>We Provide The Best Quality</h2>
-        </div>
-        <div class="row justify-content-center">
-          <div class="col-md-6 col-xl-3">
-            <div class="service-card">
-              <div class="my-icon icon-honeycomb"></div>
-              <h4><a href="{{ route('service-detail') }}">Honey Production</a></h4>
-            </div>
-          </div>
-          <div class="col-md-6 col-xl-3">
-            <div class="service-card">
-              <div class="my-icon icon-bee-jar-flay"></div>
-              <h4><a href="{{ route('service-detail') }}">Beekeeping Classes</a></h4>
-            </div>
-          </div>
-          <div class="col-md-6 col-xl-3">
-            <div class="service-card">
-              <div class="my-icon icon-hone-shop-bag"></div>
-              <h4><a href="{{ route('service-detail') }}">Honey Shop</a></h4>
-            </div>
-          </div>
-          <div class="col-md-6 col-xl-3">
-            <div class="service-card">
-              <div class="my-icon icon-honey-sarf"></div>
-              <h4><a href="{{ route('service-detail') }}">Swarm Removal</a></h4>
-            </div>
-          </div>
-        </div>
-        <div class="more-link">
-          <a class="link-anime v1" href="{{ route('service-detail') }}">more services</a>
-        </div>
-      </div>
-    </div>
-  </section>
 
-  <section class="section py-5" id="five">
+
+  <section class="section py-5" id="three">
     <div class="container">
       <div class="swiper mySwiper">
         <div class="swiper-wrapper">
@@ -230,7 +193,7 @@
     </div>
   </section>
 
-  <section class="grid-banner-section section" id="six">
+  <section class="grid-banner-section section" id="three">
     <div class="container py-5">
       <div class="row justify-content-center">
         <div class="col-lg-10">
@@ -260,7 +223,7 @@
     </div>
   </section>
 
-  <section class="testimonial-section section" id="seven">
+  <section class="testimonial-section section" id="one">
     <div class="container">
       <h2 class="testimonial-title">What Our Clients Say</h2>
       <!-- Swiper -->

@@ -13,7 +13,7 @@
     <!-- <link rel="stylesheet" href="https://public.codepenassets.com/css/normalize-5.0.0.min.css"> -->
     <link rel="stylesheet" href="{{ asset('assets/style.css')}}" />
     <link rel="apple-touch-icon" href="{{ asset('assets/img/logo/favicon.svg')}}">
-    <link rel="icon" href="{{ asset('images/logo.png')}}">
+    <link rel="icon" href="{{ asset('Images/logo.png')}}">
     <link rel="stylesheet" href="{{ asset('assets/css/bootstrap.min.css')}}">
     <link rel="stylesheet" href="{{ asset('assets/all-icons/myicon.css')}}">
     <link rel="stylesheet" href="{{ asset('assets/css/plugins.css')}}">
@@ -37,7 +37,7 @@
           <div class="container">
             <div class="menu-bar-content">
               <div class="menu-logo">
-                <a href="{{ route('/') }}"><img src="{{ asset('images/logo.png')}}" alt="Logo"></a>
+                <a href="{{ route('/') }}"><img src="./Images/logo.png" alt="Logo"></a>
               </div>
               <nav class="main-menu">
                 <ul>
@@ -139,15 +139,15 @@
                     <div class="footer-left">
                       <div class="footer-logo">
                         <a href="{{ route('/') }}">
-                          <img class="w-50" src="{{ asset('images/logo.png')}}" alt="Logo">
+                          <img class="w-50" src="/Images/logo.png" alt="Logo">
                         </a>
                       </div>
                         <p>
                             At <strong>Hunzzz Honey</strong>, we bring you the purest <strong>Sidr honey</strong> straight from the blossoms of the sacred Sidr tree. 
                             Our honey is known for its rich taste, natural healing power, and cultural heritage. 
-                            <!-- We work with trusted beekeepers who follow traditional and sustainable methods to ensure every jar is 
+                            We work with trusted beekeepers who follow traditional and sustainable methods to ensure every jar is 
                             <strong>100% raw, unfiltered, and additive-free</strong>. From hive to home, we promise purity, transparency, and care in every drop. 
-                            <em>🌿 Pure. Natural. Authentic.</em> -->
+                            <em>🌿 Pure. Natural. Authentic.</em>
                         </p>
 
                     </div>
