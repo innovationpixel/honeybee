@@ -72,8 +72,8 @@
                                             </td>
                                             <td style="padding-top: 20px;">{{ $item->product->name ?? '' }}</td>
                                             <td style="padding-top: 20px;">{{ $item->quantity ?? 0 }}</td>
-                                            <td style="padding-top: 20px;">{{ $item->product->price ?? 0 }}</td>
-                                            <td style="padding-top: 20px;">{{ ( $item->quantity ?? 0 ) * ( $item->product->price ?? 0 ) }}</td>
+                                            <td style="padding-top: 20px;">${{ $item->product->price ?? 0 }}.00</td>
+                                            <td style="padding-top: 20px;">${{ ( $item->quantity ?? 0 ) * ( $item->product->price ?? 0 ) }}.00</td>
                                         </tr>
                                     @endforeach
                                 @endif
@@ -81,7 +81,7 @@
 								<tr class="c_row">
 									<td colspan="4" scope="row"></td>
 									<th style="padding-top: 20px;">Grand Total</th>
-									<th style="padding-top: 20px;">$ {{ $order->sub_total ?? 0 }}</th>
+									<th style="padding-top: 20px;">${{ $order->sub_total ?? 0 }}.00</th>
 								</tr>
 
 						</tbody>

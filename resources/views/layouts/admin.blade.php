@@ -37,7 +37,7 @@
           <div class="container">
             <div class="menu-bar-content">
               <div class="menu-logo">
-                <a href="{{ route('/') }}"><img src="https://dropbelaravel.bracketweb.com/assets/images/logo-dark.png" alt="Logo"></a>
+                <a href="{{ route('/') }}"><img src="./Images/logo.png" alt="Logo"></a>
               </div>
               <nav class="main-menu">
                 <ul>
@@ -90,7 +90,11 @@
                     </li>
                     <li>
                       <div class="shop-card-list">
-                        <a class="shop-card-btn" href="{{ route('my-account') }}"> 
+                        @if( auth()->user()->role == 'admin' )
+                          <a class="shop-card-btn" href="{{ route('dashboard') }}"> 
+                        @else
+                          <a class="shop-card-btn" href="{{ route('my-account') }}">
+                        @endif
                           <span class="my-icon icon-user"></span>
                         </a>
                       </div>
@@ -129,13 +133,13 @@
 
           <div class="info-content">
             <div class="row">
-              <div class="col-md-6 col-lg-12 col-xl-3">
+              <div class="col-md-6 col-lg-12 col-xl-4">
                 <div class="footer__widget">
                   <div class="footer__widget-content">
                     <div class="footer-left">
                       <div class="footer-logo">
                         <a href="{{ route('/') }}">
-                          <img src="https://dropbelaravel.bracketweb.com/assets/images/logo-dark.png" alt="Logo">
+                          <img src="/Images/logo.png" alt="Logo">
                         </a>
                       </div>
                       <p>Beeberrry is a leading brand. We are 8 years old and have largest
@@ -143,15 +147,14 @@
                         antioxidants.</p>
                       <ul class="socials-links-box v1">
                         <li><a href="#"><span class="my-icon icon-facebook"></span></a></li>
-                        <li><a href="#"><span class="my-icon icon-twitter"></span></a></li>
-                        <li><a href="#"><span class="my-icon icon-pinterest-p"></span></a></li>
-                        <li><a href="#"><span class="my-icon icon-instagram"></span></a></li>
+                        <li><a href="https://x.com/himalayaness"><span class="my-icon icon-twitter"></span></a></li>
+                        <li><a href="https://www.instagram.com/himalayanessenceltd/"><span class="my-icon icon-instagram"></span></a></li>
                       </ul>
                     </div>
                   </div>
                 </div>
               </div>
-              <div class="col-md-6 col-lg-4 col-xl-3">
+              <div class="col-md-6 col-lg-4 col-xl-4">
                 <div class="footer__widget">
                   <h4 class="footer__widget-title">Useful Links</h4>
                   <div class="footer__widget-content">
@@ -167,29 +170,17 @@
                   </div>
                 </div>
               </div>
-              <div class="col-md-6 col-lg-4 col-xl-3">
+              <div class="col-md-6 col-lg-4 col-xl-4">
                 <div class="footer__widget">
                   <h4 class="footer__widget-title">Contact Us</h4>
                   <div class="footer__widget-content">
                     <div class="info-link">
-                      <p>4517 Washington Ave. Manchester, Kentucky 39495</p>
+                      <p>Peterborough, United Kingdom</p>
                       <ul>
                         <li>
-                          <a href="#">
-                            <span class="my-icon icon-phone"></span>
-                            <span class="text">+91-562 687 8900</span>
-                          </a>
-                        </li>
-                        <li>
-                          <a href="#">
+                          <a href="mailto:himalayanessenceltd@outlook.com">
                             <span class="my-icon icon-envelope"></span>
-                            <span class="text">bill.sanders@example.com</span>
-                          </a>
-                        </li>
-                        <li>
-                          <a href="#">
-                            <span class="my-icon icon-envelope"></span>
-                            <span class="text">deanna.curtis@example.com</span>
+                            <span class="text">himalayanessenceltd@outlook.com</span>
                           </a>
                         </li>
                       </ul>
@@ -197,23 +188,23 @@
                   </div>
                 </div>
               </div>
-              <div class="col-md-6 col-lg-4 col-xl-3">
-                <div class="footer__widget">
-                  <h4 class="footer__widget-title">Instagram</h4>
-                  <div class="footer__widget-content">
-                    <div class="insta-gallry">
-                      <ul>
-                        <li><a href="#"><img src="{{ asset('assets/img/footer/insta-1.png')}}" alt="insta"></a></li>
-                        <li><a href="#"><img src="{{ asset('assets/img/footer/insta-2.png')}}" alt="insta"></a></li>
-                        <li><a href="#"><img src="{{ asset('assets/img/footer/insta-3.png')}}" alt="insta"></a></li>
-                        <li><a href="#"><img src="{{ asset('assets/img/footer/insta-4.png')}}" alt="insta"></a></li>
-                        <li><a href="#"><img src="{{ asset('assets/img/footer/insta-5.png')}}" alt="insta"></a></li>
-                        <li><a href="#"><img src="{{ asset('assets/img/footer/insta-6.png')}}" alt="insta"></a></li>
-                      </ul>
-                    </div>
-                  </div>
-                </div>
-              </div>
+              <!--<div class="col-md-6 col-lg-4 col-xl-3">-->
+              <!--  <div class="footer__widget">-->
+              <!--    <h4 class="footer__widget-title">Instagram</h4>-->
+              <!--    <div class="footer__widget-content">-->
+              <!--      <div class="insta-gallry">-->
+              <!--        <ul>-->
+              <!--          <li><a href="#"><img src="{{ asset('assets/img/footer/insta-1.png')}}" alt="insta"></a></li>-->
+              <!--          <li><a href="#"><img src="{{ asset('assets/img/footer/insta-2.png')}}" alt="insta"></a></li>-->
+              <!--          <li><a href="#"><img src="{{ asset('assets/img/footer/insta-3.png')}}" alt="insta"></a></li>-->
+              <!--          <li><a href="#"><img src="{{ asset('assets/img/footer/insta-4.png')}}" alt="insta"></a></li>-->
+              <!--          <li><a href="#"><img src="{{ asset('assets/img/footer/insta-5.png')}}" alt="insta"></a></li>-->
+              <!--          <li><a href="#"><img src="{{ asset('assets/img/footer/insta-6.png')}}" alt="insta"></a></li>-->
+              <!--        </ul>-->
+              <!--      </div>-->
+              <!--    </div>-->
+              <!--  </div>-->
+              <!--</div>-->
             </div>
           </div>
           <div class="main-footer">

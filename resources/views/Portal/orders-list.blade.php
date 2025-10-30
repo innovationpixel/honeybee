@@ -73,10 +73,10 @@
 	                                    <td>{{ $order->customer->first_name ?? '' }} {{ $order->customer->last_name ?? '' }}</td>
 	                                    <td>{{ $order->city }}</td>
 	                                    <td>{{ $order->address }}</td>
-	                                    <td>AED {{ $order->sub_total ?? '0' }}.00</td>
+	                                    <td>${{ $order->sub_total ?? '0' }}.00</td>
 	                                    <td>{{ \Carbon\Carbon::parse($order->created_at)->format('jS M y h:iA') }}</td>
 	                                    <td>
-	                                    	<input type="hidden" name="order_id" id="order_id" value="{{ $order->id }}">
+	                                    	<input type="hidden" name="order_id" class="order_id" value="{{ $order->id }}">
 											<select class="form-control changes_order_status" name="changes_order_status" id="changes_order_status">
 											    @if (isset($orderStatuses) && !empty($orderStatuses))
 											        @foreach ($orderStatuses as $orderStatus)
@@ -166,7 +166,7 @@
 	        $('.changes_order_status').on('change', function () {
 
 	            const selectedStatus = $(this).val();
-	            const orderId = $('#order_id').val();
+	            const orderId = $(this).closest('tr').find('.order_id').val();
 
 	            $.ajax({
 	                url: '{{ route("change_order_status") }}',

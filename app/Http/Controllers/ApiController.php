@@ -33,45 +33,61 @@ class ApiController extends Controller
     // PRODUCTS
     public function GetAllProducts(Request $request, $id = null)
     {
-        $products = Product::with(['documents' => function($q) {
-                $q->select('belong_id', 'original_name', 'encoded_name', 'title');
-            }])
-            ->where('deleted', 0)
-            ->when($id, fn($q) => $q->where('id', $id))
-            ->when($request->filled('id'), fn($q) => $q->where('id', $request->id))
-            ->when($request->filled('category_id'), fn($q) => $q->where('category_id', $request->category_id))
-            ->when($request->filled('sub_category_id'), fn($q) => $q->where('sub_category_id', $request->sub_category_id))
-            ->when($request->filled('search'), function ($q) use ($request) {
-                $q->where('name', 'LIKE', '%' . $request->search . '%');
-            })
-            ->when($request->filled('price_min') && $request->filled('price_max'), function ($q) use ($request) {
-                $q->whereBetween('price', [$request->price_min, $request->price_max]);
-            })
-            ->when($request->filled('sort_by'), function ($q) use ($request) {
-                switch ($request->sort_by) {
-                    case 'popularity':
-                        $q->orderBy('popularity', 'desc');
-                        break;
-                    case 'new_arrivals':
-                        $q->orderBy('created_at', 'desc');
-                        break;
-                    case 'low_to_high':
-                        $q->orderBy('price', 'asc');
-                        break;
-                    case 'high_to_low':
-                        $q->orderBy('price', 'desc');
-                        break;
-                    default:
-                        $q->orderBy('id', 'desc');
-                }
-            })
-            ->paginate(1);
+        $query = Product::with(['documents:id,belong_id,original_name,encoded_name,title'])
+            ->where('deleted', 0);
+
+        if ($id) {
+            $query->where('id', $id);
+        } elseif ($request->filled('id')) {
+            $query->where('id', $request->id);
+        }
+
+        if ($request->filled('category_id')) {
+            $query->where('category_id', $request->category_id);
+        }
+
+        if ($request->filled('sub_category_id')) {
+            $query->where('sub_category_id', $request->sub_category_id);
+        }
+
+        if ($request->filled('search')) {
+            $search = trim($request->search);
+            $query->where('name', 'LIKE', "%{$search}%");
+        }
+
+        if ($request->filled('price_min') || $request->filled('price_max')) {
+            $min = (float) ($request->price_min ?? 0);
+            $max = (float) ($request->price_max ?? Product::max('price'));
+            $query->whereBetween('price', [$min, $max]);
+        }
+
+        $sortBy = $request->input('sort_by');
+        switch ($sortBy) {
+            case 'popularity':
+                $query->orderBy('popularity', 'desc');
+                break;
+            case 'new_arrivals':
+                $query->orderBy('created_at', 'desc');
+                break;
+            case 'low_to_high':
+                $query->orderBy('price', 'asc');
+                break;
+            case 'high_to_low':
+                $query->orderBy('price', 'desc');
+                break;
+            default:
+                $query->orderBy('id', 'desc');
+                break;
+        }
+
+        $perPage = (int) $request->input('per_page', 10);
+        $products = $query->paginate($perPage);
 
         return response()->json([
             'status' => 'success',
-            'message' => 'products fetched successfully',
+            'message' => 'Products fetched successfully',
             'data' => $products
-        ], 201);
+        ], 200);
     }
     public function GetAllCategories()
     {

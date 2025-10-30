@@ -27,14 +27,19 @@ class PortalController extends Controller
 {
     public function dashboard()
     {
-        $products   = Product::where('deleted', 0)->count();
-        $pending    = Order::where('status', 'Pending')->count();
-        $inprogress = Order::where('status', 'Order Processing')->count();
-        $delivered  = Order::where('status', 'Delivered')->count();
-        $cancelled  = Order::where('status', 'Cancelled')->count();
-        $orders     = Order::count();
+        if( Auth::check() && Auth::user()->role == 'admin' )
+        {
+            $products   = Product::where('deleted', 0)->count();
+            $pending    = Order::where('status', 'Pending')->count();
+            $inprogress = Order::where('status', 'Order Processing')->count();
+            $delivered  = Order::where('status', 'Delivered')->count();
+            $cancelled  = Order::where('status', 'Cancelled')->count();
+            $orders     = Order::count();
 
-        return view('Portal/dashboard', compact('products','pending','inprogress','delivered','cancelled','orders') );
+            return view('Portal/dashboard', compact('products','pending','inprogress','delivered','cancelled','orders') );
+        } else {
+            return redirect()->route('/')->with('error', 'No Page Found!');
+        }
     }
 
 
@@ -44,10 +49,15 @@ class PortalController extends Controller
     // PRODUCTS
     public function add_product()
     {
-        $categories = Category::where('deleted', 0)->get();
-        $sub_categories = SubCategory::where('deleted', 0)->get();
+        if( Auth::check() && Auth::user()->role == 'admin' )
+        {
+            $categories = Category::where('deleted', 0)->get();
+            $sub_categories = SubCategory::where('deleted', 0)->get();
 
-        return view('Portal/add-product', compact('categories', 'sub_categories'));
+            return view('Portal/add-product', compact('categories', 'sub_categories'));
+        } else {
+            return redirect()->route('/')->with('error', 'No Page Found!');
+        }
     }
     public function getSubCategories($id)
     {
@@ -56,58 +66,63 @@ class PortalController extends Controller
     }
     public function save_product(Request $request)
     {
-        $input = $request->all();
+        if( Auth::check() && Auth::user()->role == 'admin' )
+        {
+            $input = $request->all();
 
-        if (!empty($input) && !empty($input['product_name'])) {
+            if (!empty($input) && !empty($input['product_name'])) {
 
-            $product = new Product();
-            $product->category_id = $input['category_id'];
-            $product->sub_category_id = $input['sub_category_id'];
-            $product->name = $input['product_name'];
-            $product->description = $input['short_description'];
-            $product->url = $input['url'];
-            $product->weight = $input['weight'] ?? '';
-            $product->price = $input['price'] ?? 0;
-            $product->discounted_price = $input['discounted_price'] ?? 0;
-            $product->save();
+                $product = new Product();
+                $product->category_id = $input['category_id'];
+                $product->sub_category_id = $input['sub_category_id'];
+                $product->name = $input['product_name'];
+                $product->description = $input['short_description'];
+                $product->url = $input['url'];
+                $product->weight = $input['weight'] ?? '';
+                $product->price = $input['price'] ?? 0;
+                $product->discounted_price = $input['discounted_price'] ?? 0;
+                $product->save();
 
-            $product_id = $product->id;
+                $product_id = $product->id;
 
-            if ($request->hasFile('images'))
-            {
-                $images = $request->file('images');
-
-                if (!is_array($images))
+                if ($request->hasFile('images'))
                 {
-                    $images = [$images];
-                }
+                    $images = $request->file('images');
 
-                foreach ($images as $key => $image)
-                {
-                    $original_name = $image->getClientOriginalName();
-                    $file_name = pathinfo($original_name, PATHINFO_FILENAME);
-                    $file_extension = $image->getClientOriginalExtension();
-                    $digits = 3;
-                    $rand = rand(pow(10, $digits - 1), pow(10, $digits) - 1);
-                    $file_name = $file_name . '_' . $rand . '-' . strtotime("now") . '.' . $file_extension;
-
-                    $image->storeAs('public/products', $file_name);
-
-                    $document = new Document();
-                    $document->belong_id = $product->id;
-                    $document->belong_name = 'product';
-                    $document->original_name = $original_name;
-                    $document->encoded_name = $file_name;
-                    if( $key == 0)
+                    if (!is_array($images))
                     {
-                        $document->title = 1;
+                        $images = [$images];
                     }
-                    $document->save();
-                }
-                
-            }
 
-            return redirect()->route('products-list')->with('success', 'Product has been added successfully!');
+                    foreach ($images as $key => $image)
+                    {
+                        $original_name = $image->getClientOriginalName();
+                        $file_name = pathinfo($original_name, PATHINFO_FILENAME);
+                        $file_extension = $image->getClientOriginalExtension();
+                        $digits = 3;
+                        $rand = rand(pow(10, $digits - 1), pow(10, $digits) - 1);
+                        $file_name = $file_name . '_' . $rand . '-' . strtotime("now") . '.' . $file_extension;
+
+                        $image->storeAs('public/products', $file_name);
+
+                        $document = new Document();
+                        $document->belong_id = $product->id;
+                        $document->belong_name = 'product';
+                        $document->original_name = $original_name;
+                        $document->encoded_name = $file_name;
+                        if( $key == 0)
+                        {
+                            $document->title = 1;
+                        }
+                        $document->save();
+                    }
+                    
+                }
+
+                return redirect()->route('products-list')->with('success', 'Product has been added successfully!');
+            }
+        } else {
+            return redirect()->route('/')->with('error', 'No Page Found!');
         }
     }
     public function view_product($id)
@@ -136,93 +151,98 @@ class PortalController extends Controller
     }
     public function update_product(Request $request)
     {
-        $formData = json_decode($request->input('data'), true);
-
-        $input = $request->all();
-
-        $product_id = Crypt::decryptString($request->input('product_id'));
-        $product = Product::find($product_id);
-
-        if ($product) 
+        if( Auth::check() && Auth::user()->role == 'admin' )
         {
-            $product->category_id = $request->input('category_id');
-            $product->sub_category_id = $request->input('sub_category_id');
-            $product->name = $request->input('product_name');
-            $product->description = $request->input('short_description');
-            $product->url = $request->input('url');
-            $product->weight = $request->input('weight');
-            $product->price = $request->input('price');
-            $product->discounted_price = $request->input('discounted_price') ?? 0;
-            $product->save();
+            $formData = json_decode($request->input('data'), true);
 
-            if ($request->hasFile('dropzone_images'))
+            $input = $request->all();
+
+            $product_id = Crypt::decryptString($request->input('product_id'));
+            $product = Product::find($product_id);
+
+            if ($product) 
             {
-                foreach ($request->file('dropzone_images') as $image)
-                {
-                    if ($image->getClientOriginalName() != 'blob')
-                    {
-                        $file_name = time() . '-' . $image->getClientOriginalName();
-                        $image->storeAs('public/products', $file_name);
+                $product->category_id = $request->input('category_id');
+                $product->sub_category_id = $request->input('sub_category_id');
+                $product->name = $request->input('product_name');
+                $product->description = $request->input('short_description');
+                $product->url = $request->input('url');
+                $product->weight = $request->input('weight');
+                $product->price = $request->input('price');
+                $product->discounted_price = $request->input('discounted_price') ?? 0;
+                $product->save();
 
-                        $document = new Document();
-                        $document->belong_id = $product->id;
-                        $document->belong_name = 'product';
-                        $document->original_name = $image->getClientOriginalName();
-                        $document->encoded_name = $file_name;
-                        $document->save();
+                if ($request->hasFile('dropzone_images'))
+                {
+                    foreach ($request->file('dropzone_images') as $image)
+                    {
+                        if ($image->getClientOriginalName() != 'blob')
+                        {
+                            $file_name = time() . '-' . $image->getClientOriginalName();
+                            $image->storeAs('public/products', $file_name);
+
+                            $document = new Document();
+                            $document->belong_id = $product->id;
+                            $document->belong_name = 'product';
+                            $document->original_name = $image->getClientOriginalName();
+                            $document->encoded_name = $file_name;
+                            $document->save();
+                        }
                     }
                 }
-            }
 
-            if (!empty($request->input('removed_files'))) 
-            {
-                $removed_files = json_decode($request->input('removed_files'));
+                if (!empty($request->input('removed_files'))) 
+                {
+                    $removed_files = json_decode($request->input('removed_files'));
 
-                foreach ($removed_files as $key => $value) {
-                    $split = explode('_', $value);
+                    foreach ($removed_files as $key => $value) {
+                        $split = explode('_', $value);
 
-                    $file_id = isset($split[0]) ? intval($split[0]) : null;
+                        $file_id = isset($split[0]) ? intval($split[0]) : null;
 
-                    if ($file_id) {
+                        if ($file_id) {
 
-                        DB::table('documents')
-                            ->where('id', $file_id)
-                            ->update(['deleted' => 1]);
-
-                        $belong_id = DB::table('documents')
-                            ->where('id', $file_id)
-                            ->value('belong_id');
-
-                        if ($belong_id) {
-
-                            $was_title_1 = DB::table('documents')
+                            DB::table('documents')
                                 ->where('id', $file_id)
-                                ->value('title') == 1;
+                                ->update(['deleted' => 1]);
 
-                            if ($was_title_1) {
+                            $belong_id = DB::table('documents')
+                                ->where('id', $file_id)
+                                ->value('belong_id');
 
-                                $next_picture = DB::table('documents')
-                                    ->where('belong_id', $belong_id)
-                                    ->where('deleted', 0)
-                                    ->orderBy('id', 'asc')
-                                    ->first();
+                            if ($belong_id) {
 
-                                if ($next_picture) {
-                                    DB::table('documents')
-                                        ->where('id', $next_picture->id)
-                                        ->update(['title' => 1]);
+                                $was_title_1 = DB::table('documents')
+                                    ->where('id', $file_id)
+                                    ->value('title') == 1;
+
+                                if ($was_title_1) {
+
+                                    $next_picture = DB::table('documents')
+                                        ->where('belong_id', $belong_id)
+                                        ->where('deleted', 0)
+                                        ->orderBy('id', 'asc')
+                                        ->first();
+
+                                    if ($next_picture) {
+                                        DB::table('documents')
+                                            ->where('id', $next_picture->id)
+                                            ->update(['title' => 1]);
+                                    }
                                 }
                             }
                         }
                     }
                 }
+
+                return redirect()->route('products-list')->with('success', 'Product has been updated successfully!');
+
+            } else {
+
+                return redirect()->route('edit-product', Crypt::encryptString($product_id))->with('error', 'Product not found!');
             }
-
-            return redirect()->route('products-list')->with('success', 'Product has been updated successfully!');
-
         } else {
-
-            return redirect()->route('edit-product', Crypt::encryptString($product_id))->with('error', 'Product not found!');
+            return redirect()->route('/')->with('error', 'No Page Found!');
         }
     }
     public function deleteProduct($id)

@@ -58,101 +58,10 @@
     </div>
   </div>
 
-  <div class="section py-5" id="three">
+  <section class="section why-us v1" id="one">
+              <div class="one" >
     <div class="container">
-      <div class="swiper mySwiper">
-        <div class="swiper-wrapper">
 
-          @if( isset($products) && !empty($products) )
-            @foreach($products as $product)                            
-              <div class="swiper-slide">
-                <div class="product-card v1">
-                  <div class="product-img">
-                    <a href="{{ route('product-detail', $product->url) }}">
-                      @if( isset($product->documentTitle) && !empty($product->documentTitle) )
-                        <img src="{{ asset('storage/products/' .$product->documentTitle->encoded_name ) }}" alt="{{ $product->name ?? '' }}">
-                      @endif
-                    </a>
-                  </div>
-                  <div class="product-content">
-                    <h4><a href="{{ route('product-detail', $product->url) }}">{{ $product->name ?? '' }}</a></h4>
-                    @php
-                      $originalPrice = $product->price ?? 0;
-                      $discountPercentage = $product->discounted_price ?? 0;
-                      $finalPrice = $originalPrice;
-
-                      if ($discountPercentage > 0) {
-                          $finalPrice = $originalPrice - ($originalPrice * ($discountPercentage / 100));
-                      }
-                    @endphp
-                    @if($discountPercentage > 0)
-                      <h5>${{ number_format($finalPrice, 2) }} <del>${{ number_format($originalPrice, 2) }}</del></h5>
-                    @else
-                      <h5>${{ number_format($originalPrice, 2) }}</h5>
-                    @endif
-                    <p>Weight: <strong>{{ $product->weight ?? '' }}</strong></p>
-                  </div>
-                  <ul class="shop-btns">
-                    <li><a class="{{ Auth::id() && $product->wishlist ? 'wishlist_active' : 'add-to-wishlist' }}" data-product-id="{{ $product->id }}"><span class="my-icon icon-heart"></span></a></li>
-                    <li><a data-product-id="{{ $product->id }}" data-quantity="1" data-price="{{ $discountPercentage > 0 ? $finalPrice : $originalPrice }}" class="add-to-cart-custom"><span class="my-icon icon-shop-bag"></span></a></li>
-                  </ul>
-                </div>
-              </div>
-            @endforeach
-          @endif
-
-        </div>
-
-        <div class="swiper-button-next"></div>
-        <div class="swiper-button-prev"></div>
-
-      </div>
-    </div>
-  </div>
-
-
-  <section class="our-services v1" id="our_services one" >
-        <div class="one"> 
-    <div class=" container">
-      <div class="section-title-center v1">
-        <h6>Our Services</h6>
-        <h2>We Provide The Best Quality</h2>
-      </div>
-      <div class="row justify-content-center">
-        <div class="col-md-6 col-xl-3">
-          <div class="service-card">
-            <div class="my-icon icon-honeycomb"></div>
-            <h4><a href="{{ route('service-detail') }}">Honey Production</a></h4>
-          </div>
-        </div>
-        <div class="col-md-6 col-xl-3">
-          <div class="service-card">
-            <div class="my-icon icon-bee-jar-flay"></div>
-            <h4><a href="{{ route('service-detail') }}">Beekeeping Classes</a></h4>
-          </div>
-        </div>
-        <div class="col-md-6 col-xl-3">
-          <div class="service-card">
-            <div class="my-icon icon-hone-shop-bag"></div>
-            <h4><a href="{{ route('service-detail') }}">Honey Shop</a></h4>
-          </div>
-        </div>
-        <div class="col-md-6 col-xl-3">
-          <div class="service-card">
-            <div class="my-icon icon-honey-sarf"></div>
-            <h4><a href="{{ route('service-detail') }}">Swarm Removal</a></h4>
-          </div>
-        </div>
-      </div>
-      <div class="more-link">
-        <a class="link-anime v1" href="{{ route('service-detail') }}">more services</a>
-      </div>
-    </div>
-    </div>
-  </section>
-
-  <section class="why-us v1" id="five">
-    <div class="container">
       <div class="section-title-center v1">
         <h6>Why Us</h6>
         <h2>Why Choose Our Products</h2>
@@ -215,7 +124,103 @@
         </div>
       </div>
     </div>
+    </div>
   </section>
+
+ 
+
+
+  <section class="our-services v1" id="our_services one" >
+        <div class="one"> 
+    <div class=" container">
+      <div class="section-title-center v1">
+        <h6>Our Services</h6>
+        <h2>We Provide The Best Quality</h2>
+      </div>
+      <div class="row justify-content-center">
+        <div class="col-md-6 col-xl-3">
+          <div class="service-card">
+            <div class="my-icon icon-honeycomb"></div>
+            <h4><a href="{{ route('service-detail') }}">Honey Production</a></h4>
+          </div>
+        </div>
+        <div class="col-md-6 col-xl-3">
+          <div class="service-card">
+            <div class="my-icon icon-bee-jar-flay"></div>
+            <h4><a href="{{ route('service-detail') }}">Beekeeping Classes</a></h4>
+          </div>
+        </div>
+        <div class="col-md-6 col-xl-3">
+          <div class="service-card">
+            <div class="my-icon icon-hone-shop-bag"></div>
+            <h4><a href="{{ route('service-detail') }}">Honey Shop</a></h4>
+          </div>
+        </div>
+        <div class="col-md-6 col-xl-3">
+          <div class="service-card">
+            <div class="my-icon icon-honey-sarf"></div>
+            <h4><a href="{{ route('service-detail') }}">Swarm Removal</a></h4>
+          </div>
+        </div>
+      </div>
+      <div class="more-link">
+        <a class="link-anime v1" href="{{ route('service-detail') }}">more services</a>
+      </div>
+    </div>
+    </div>
+  </section>
+
+ <div class="section py-5" id="three">
+    <div class="container">
+      <div class="swiper mySwiper">
+        <div class="swiper-wrapper">
+
+          @if( isset($products) && !empty($products) )
+            @foreach($products as $product)                            
+              <div class="swiper-slide">
+                <div class="product-card v1">
+                  <div class="product-img">
+                    <a href="{{ route('product-detail', $product->url) }}">
+                      @if( isset($product->documentTitle) && !empty($product->documentTitle) )
+                        <img src="{{ asset('storage/products/' .$product->documentTitle->encoded_name ) }}" alt="{{ $product->name ?? '' }}">
+                      @endif
+                    </a>
+                  </div>
+                  <div class="product-content">
+                    <h4><a href="{{ route('product-detail', $product->url) }}">{{ $product->name ?? '' }}</a></h4>
+                    @php
+                      $originalPrice = $product->price ?? 0;
+                      $discountPercentage = $product->discounted_price ?? 0;
+                      $finalPrice = $originalPrice;
+
+                      if ($discountPercentage > 0) {
+                          $finalPrice = $originalPrice - ($originalPrice * ($discountPercentage / 100));
+                      }
+                    @endphp
+                    @if($discountPercentage > 0)
+                      <h5>${{ number_format($finalPrice, 2) }} <del>${{ number_format($originalPrice, 2) }}</del></h5>
+                    @else
+                      <h5>${{ number_format($originalPrice, 2) }}</h5>
+                    @endif
+                    <p>Weight: <strong>{{ $product->weight ?? '' }}</strong></p>
+                  </div>
+                  <ul class="shop-btns">
+                    <li><a class="{{ Auth::id() && $product->wishlist ? 'wishlist_active' : 'add-to-wishlist' }}" data-product-id="{{ $product->id }}"><span class="my-icon icon-heart"></span></a></li>
+                    <li><a data-product-id="{{ $product->id }}" data-quantity="1" data-price="{{ $discountPercentage > 0 ? $finalPrice : $originalPrice }}" class="add-to-cart-custom"><span class="my-icon icon-shop-bag"></span></a></li>
+                  </ul>
+                </div>
+              </div>
+            @endforeach
+          @endif
+
+        </div>
+
+        <div class="swiper-button-next"></div>
+        <div class="swiper-button-prev"></div>
+
+      </div>
+    </div>
+  </div>
 
   <div class="grid-banner-section section" id="six">
     <div class="container py-5">
