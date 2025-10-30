@@ -35,13 +35,11 @@
                                     hexagonal cells, into which the bees regurgitate honey for storage. Other
                                     honey-producing species.</p>
                             </div>
-                            <div class="socials-links-box">
+                            <div class="socials-links-box mb-4">
                                 <ul>
                                     <li><a href="#"><span class="my-icon icon-facebook"></span></a></li>
-                                    <li><a href="#"><span class="my-icon icon-twitter"></span></a></li>
-                                    <li><a href="#"><span class="my-icon icon-linkedin-in"></span></a></li>
-                                    <li><a href="#"><span class="my-icon icon-instagram"></span></a></li>
-                                    <li><a href="#"><span class="my-icon icon-skype"></span></a></li>
+                                    <li><a href="https://x.com/himalayaness"><span class="my-icon icon-twitter"></span></a></li>
+                                    <li><a href="https://www.instagram.com/himalayanessenceltd/"><span class="my-icon icon-instagram"></span></a></li>
                                 </ul>
                             </div>
                         </div>
@@ -87,58 +85,27 @@
                     <h2>Get In Touch</h2>
                 </div>
                 <div class="row">
-                    <div class="col-lg-6">
+                    <div class="col-lg-12">
                         <div class="info-content">
                             <ul>
-                                <li>
-                                    <span class="my-icon icon-phone"></span>
-                                    <p><a href="#">+(528) 406-7592</a></p>
-                                </li>
+         
                                 <li>
                                     <span class="my-icon icon-location-dot"></span>
-                                    <p>4517 Washington Ave. Manchester, Kentucky 39495</p>
+                                    <p>Peterborough, United Kingdom</p>
                                 </li>
                                 <li>
                                     <span class="my-icon icon-envelope"></span>
-                                    <p><a href="#">youremail@example.com</a></p>
+                                    <p><a href="#">himalayanessenceltd@outlook.com</a></p>
                                 </li>
                             </ul>
                         </div>
                     </div>
-                    <div class="col-lg-6">
-                        <div class="schedule-content">
-                            <h4>Opening Hours</h4>
-                            <ul>
-                                <li>
-                                    <p>
-                                        <span class="day">Sat - Mon</span>
-                                        <span class="time">10 AM - 8 PM</span>
-                                    </p>
-                                </li>
-                                <li>
-                                    <p>
-                                        <span class="day">Tus - Thu</span>
-                                        <span class="time">11 AM - 7 PM</span>
-                                    </p>
-                                </li>
-                                <li>
-                                    <p>
-                                        <span class="day">Friday</span>
-                                        <span class="time off-day">Off - Day</span>
-                                    </p>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
+      
                 </div>
             </div>
         </section>
         <!-- Contact US End -->
         <!-- Contact Map Start -->
-        <div class="contact-map v1 pb-xl-spach">
-            <iframe
-                src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d14613.167032861855!2d90.433811!3d23.701273!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3755b767a022cd4b%3A0xaf33907e219d127!2sRayerbag%2C%20Dhaka!5e0!3m2!1sen!2sbd!4v1675146270950!5m2!1sen!2sbd"></iframe>
-        </div>
         <!-- Contact Map End -->
     </main>
 

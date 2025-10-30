@@ -13,7 +13,7 @@
     <!-- <link rel="stylesheet" href="https://public.codepenassets.com/css/normalize-5.0.0.min.css"> -->
     <link rel="stylesheet" href="{{ asset('assets/style.css')}}" />
     <link rel="apple-touch-icon" href="{{ asset('assets/img/logo/favicon.svg')}}">
-    <link rel="icon" href="{{ asset('assets/img/logo/icon.svg')}}">
+    <link rel="icon" href="{{ asset('images/logo.png')}}">
     <link rel="stylesheet" href="{{ asset('assets/css/bootstrap.min.css')}}">
     <link rel="stylesheet" href="{{ asset('assets/all-icons/myicon.css')}}">
     <link rel="stylesheet" href="{{ asset('assets/css/plugins.css')}}">
@@ -37,7 +37,7 @@
           <div class="container">
             <div class="menu-bar-content">
               <div class="menu-logo">
-                <a href="{{ route('/') }}"><img src="./Images/logo.png" alt="Logo"></a>
+                <a href="{{ route('/') }}"><img src="{{ asset('images/logo.png')}}" alt="Logo"></a>
               </div>
               <nav class="main-menu">
                 <ul>
@@ -139,17 +139,17 @@
                     <div class="footer-left">
                       <div class="footer-logo">
                         <a href="{{ route('/') }}">
-                          <img src="/Images/logo.png" alt="Logo">
+                          <img class="w-50" src="{{ asset('images/logo.png')}}" alt="Logo">
                         </a>
                       </div>
-                      <p>Beeberrry is a leading brand. We are 8 years old and have largest
-                        network. Raw honey contains an array of plant chemicals that act as
-                        antioxidants.</p>
-                      <ul class="socials-links-box v1">
-                        <li><a href="#"><span class="my-icon icon-facebook"></span></a></li>
-                        <li><a href="https://x.com/himalayaness"><span class="my-icon icon-twitter"></span></a></li>
-                        <li><a href="https://www.instagram.com/himalayanessenceltd/"><span class="my-icon icon-instagram"></span></a></li>
-                      </ul>
+                        <p>
+                            At <strong>Hunzzz Honey</strong>, we bring you the purest <strong>Sidr honey</strong> straight from the blossoms of the sacred Sidr tree. 
+                            Our honey is known for its rich taste, natural healing power, and cultural heritage. 
+                            <!-- We work with trusted beekeepers who follow traditional and sustainable methods to ensure every jar is 
+                            <strong>100% raw, unfiltered, and additive-free</strong>. From hive to home, we promise purity, transparency, and care in every drop. 
+                            <em>🌿 Pure. Natural. Authentic.</em> -->
+                        </p>
+
                     </div>
                   </div>
                 </div>
@@ -160,11 +160,11 @@
                   <div class="footer__widget-content">
                     <div class="useful-link">
                       <ul>
-                        <li><a href="{{ route('terms-and-conditions') }}">Terms &amp; Conditions</a></li>
-                        <li><a href="{{ route('contact') }}">Payment Methods</a></li>
+                        <li><a href="{{ route('about') }}">About Us</a></li>
+                        <li><a href="{{ route('shop') }}">Shop</a></li>
                         <li><a href="{{ route('privacy-policy') }}">Privacy Policy</a></li>
-                        <li><a href="{{ route('contact') }}">Product Complaint</a></li>
-                        <li><a href="{{ route('contact') }}">Careers</a></li>
+                        <li><a href="{{ route('terms-and-conditions') }}">Terms &amp; Conditions</a></li>
+   
                       </ul>
                     </div>
                   </div>
@@ -183,6 +183,12 @@
                             <span class="text">himalayanessenceltd@outlook.com</span>
                           </a>
                         </li>
+                      </ul>
+                      
+                      <ul class="socials-links-box v1">
+                        <li><a href="#"><span class="my-icon icon-facebook"></span></a></li>
+                        <li><a href="https://x.com/himalayaness"><span class="my-icon icon-twitter"></span></a></li>
+                        <li><a href="https://www.instagram.com/himalayanessenceltd/"><span class="my-icon icon-instagram"></span></a></li>
                       </ul>
                     </div>
                   </div>
@@ -209,17 +215,14 @@
           </div>
           <div class="main-footer">
             <div class="left-text">
-              <p>Copyright © 2025 by <a href="{{ route('/') }}">Beeberry</a>, All Rights Reserved.</p>
+              <p>Copyright © 2025 by <a class="text-black" href="{{ route('/') }}">Hunzzz Honey</a>, All Rights Reserved.</p>
             </div>
-            <div class="pement-img">
-              <img src="{{ asset('assets/img/footer/pement.png')}}" alt="pement">
-            </div>
+          
           </div>
         </div>
       </div>
     </footer>
 
-    <script src="{{ asset('assets/script.js') }}" type="module"></script>
     <script src="{{ asset('assets/js/jquery-3.6.3.min.js')}}"></script>
     <script src="{{ asset('assets/js/bootstrap.min.js')}}"></script>
     <script src="{{ asset('assets/js/plugins.js')}}"></script>
@@ -229,6 +232,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js" integrity="sha512-16esztaSRplJROstbIIdwX3N97V1+pZvV33ABoG1H2OyTttBxEGkTsoIVsiP1iaTtM8b3+hu2kB6pQ4Clr5yug==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js" integrity="sha512-Ic9xkERjyZ1xgJ5svx3y0u3xrvfT/uPkV99LBwe68xjy/mGtO+4eURHZBW2xW4SZbFrF1Tf090XqB+EVgXnVjw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+    <script src="{{ asset('assets/script.js') }}" type="module"></script>
     <script src="{{ asset('assets/bootle.js') }}"></script>
     <script>
       var swiper = new Swiper(".mySwiper", {
